@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDM CRM - Metronic Vue</title>
+    
+    <!-- Metronic CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="/vendors/apexcharts/apexcharts.css" rel="stylesheet"/>
+    <link href="/vendors/keenicons/styles.bundle.css" rel="stylesheet"/>
+    <link href="/css/styles.css" rel="stylesheet"/>
+  </head>
+  <body class="antialiased flex h-full text-base text-foreground bg-background demo1 kt-sidebar-fixed kt-header-fixed">
+    <!-- Theme Mode Script -->
+    <script>
+      const defaultThemeMode = 'light';
+      let themeMode;
+
+      if (document.documentElement) {
+        if (localStorage.getItem('kt-theme')) {
+          themeMode = localStorage.getItem('kt-theme');
+        } else if (document.documentElement.hasAttribute('data-kt-theme-mode')) {
+          themeMode = document.documentElement.getAttribute('data-kt-theme-mode');
+        } else {
+          themeMode = defaultThemeMode;
+        }
+
+        if (themeMode === 'system') {
+          themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        document.documentElement.classList.add(themeMode);
+      }
+    </script>
+    
+    <div id="app"></div>
+    
+    <!-- Metronic JS -->
+    <script src="/js/scripts.bundle.js"></script>
+    <script src="/js/widgets.bundle.js"></script>
+    <script src="/js/app.bundle.js"></script>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
