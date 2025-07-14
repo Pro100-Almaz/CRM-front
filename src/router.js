@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AuthPage from './components/AuthPage.vue'
 import Dashboard from './components/Dashboard.vue'
+import { useUserStore } from '@/stores/user'
 
 const routes = [
   {
-    path: '/auth',
-    name: 'Auth',
+    path: '/sign-in',
+    name: 'SignIn',
     component: AuthPage
   },
   {
@@ -21,15 +22,13 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next({ name: 'Auth' });
-  } else if (to.name === 'Auth' && isAuthenticated) {
-    next({ name: 'Home' });
-  } else {
-    next();
+router.beforeEach(async (to) => {
+  const user = useUserStore()
+  if (to.meta.requiresAuth) {
+    if (user.accessToken) return true
+    return { path: '/sign-in', query: { redirect: to.fullPath } }
   }
-});
+  return true
+})
 
 export default router; 

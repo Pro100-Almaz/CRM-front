@@ -22,7 +22,7 @@
         <div class="position-relative my-10">
           <hr class="border-gray-300" />
         </div>
-        <form @submit.prevent="handleSubmit" class="signin-form">
+        <form @submit.prevent="onSubmit" class="signin-form">
           <div class="form-group fv-row">
             <label for="email" class="form-label">Email адрес</label>
             <div class="input-group">
@@ -32,7 +32,7 @@
               <input
                 id="email"
                 type="email"
-                v-model="email"
+                v-model="form.email"
                 class="form-control"
                 placeholder="Введите ваш email"
                 autocomplete="off"
@@ -49,7 +49,7 @@
               <input
                 id="password"
                 :type="showPassword ? 'text' : 'password'"
-                v-model="password"
+                v-model="form.password"
                 class="form-control"
                 placeholder="Введите ваш пароль"
                 autocomplete="off"
@@ -63,11 +63,11 @@
           </div>
           <div class="form-row">
             <label class="remember-me">
-              <input type="checkbox" v-model="rememberMe" /> Запомнить меня
+              <input type="checkbox" v-model="form.remember" /> Запомнить меня
             </label>
             <a href="#" class="forgot-password">Забыли пароль?</a>
           </div>
-          <button type="submit" class="signin-btn">Войти</button>
+          <button type="submit" class="signin-btn" :disabled="loading">Войти</button>
         </form>
         <div class="register-hint">Нет аккаунта? <a href="#" class="register-link">Зарегистрироваться</a></div>
       </div>
@@ -85,22 +85,34 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 
-const email = ref('')
-const password = ref('')
-const rememberMe = ref(false)
+const form = ref({ email: '', password: '', remember: false })
+const loading = ref(false)
 const showPassword = ref(false)
 
-const handleSubmit = () => {
-  // Handle sign in logic
-  alert(`Email: ${email.value}\nPassword: ${password.value}\nRemember me: ${rememberMe.value}`)
-}
+const user = useUserStore()
+const router = useRouter()
+
 const handleGoogleAuth = () => {
-  // Handle Google auth logic
   alert('Google Auth')
 }
 const handleThirdPartyAuth = () => {
   alert('Данная функция пока не реализована. Будет доступна в ближайшее время.')
+}
+
+async function onSubmit() {
+  loading.value = true
+  try {
+    await user.signIn(form.value.email, form.value.password, form.value.remember)
+    const redirect = router.currentRoute.value.query.redirect || '/'
+    router.push(redirect)
+  } catch (err) {
+    // show error
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
