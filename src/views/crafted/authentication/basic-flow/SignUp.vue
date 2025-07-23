@@ -1,101 +1,43 @@
 <template>
   <!--begin::Wrapper-->
-  <div class="w-lg-500px p-10">
+  <div class="w-lg-500px p-10 border rounded-2 shadow-sm">
     <!--begin::Form-->
-    <VForm
-      class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework"
-      novalidate
-      @submit="onSubmitRegister"
-      id="kt_login_signup_form"
-      :validation-schema="registration"
-    >
+    <VForm class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate @submit="onSubmitRegister"
+      id="kt_login_signup_form" :validation-schema="registration">
       <!--begin::Heading-->
       <div class="mb-10 text-center">
         <!--begin::Title-->
-        <h1 class="text-gray-900 mb-3">Create an Account</h1>
+        <h1 class="text-gray-900 mb-3">Регистрация</h1>
         <!--end::Title-->
 
         <!--begin::Link-->
         <div class="text-gray-500 fw-semibold fs-4">
-          Already have an account?
-
-          <router-link to="/sign-in" class="link-primary fw-bold">
-            Sign in here
-          </router-link>
+          Выберите способ входа в CRM систему
         </div>
         <!--end::Link-->
       </div>
       <!--end::Heading-->
 
       <!--begin::Action-->
-      <button type="button" class="btn btn-light-primary fw-bold w-100 mb-10">
-        <img
-          alt="Logo"
-          :src="getAssetPath('media/svg/brand-logos/google-icon.svg')"
-          class="h-20px me-3"
-        />
-        Sign in with Google
-      </button>
+      <a href="#" class="btn btn-flex btn-light btn-lg w-100 mb-5 bg-white border border-secondary">
+        <img alt="Logo" :src="getAssetPath('media/svg/brand-logos/google-icon.svg')" class="h-20px me-3" />
+        Continue with Google
+      </a>
       <!--end::Action-->
 
       <!--begin::Separator-->
       <div class="d-flex align-items-center mb-10">
         <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-        <span class="fw-semobold text-gray-500 fs-7 mx-2">OR</span>
+        <span class="fw-semobold text-gray-500 fs-7 mx-2">ИЛИ</span>
         <div class="border-bottom border-gray-300 mw-50 w-100"></div>
       </div>
       <!--end::Separator-->
 
       <!--begin::Input group-->
-      <div class="row fv-row mb-7">
-        <!--begin::Col-->
-        <div class="col-xl-6">
-          <label class="form-label fw-bold text-gray-900 fs-6">First Name</label>
-          <Field
-            class="form-control form-control-lg form-control-solid"
-            type="text"
-            placeholder=""
-            name="first_name"
-            autocomplete="off"
-          />
-          <div class="fv-plugins-message-container">
-            <div class="fv-help-block">
-              <ErrorMessage name="first_name" />
-            </div>
-          </div>
-        </div>
-        <!--end::Col-->
-
-        <!--begin::Col-->
-        <div class="col-xl-6">
-          <label class="form-label fw-bold text-gray-900 fs-6">Last Name</label>
-          <Field
-            class="form-control form-control-lg form-control-solid"
-            type="text"
-            placeholder=""
-            name="last_name"
-            autocomplete="off"
-          />
-          <div class="fv-plugins-message-container">
-            <div class="fv-help-block">
-              <ErrorMessage name="last_name" />
-            </div>
-          </div>
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-
-      <!--begin::Input group-->
       <div class="fv-row mb-7">
-        <label class="form-label fw-bold text-gray-900 fs-6">Email</label>
-        <Field
-          class="form-control form-control-lg form-control-solid"
-          type="email"
-          placeholder=""
-          name="email"
-          autocomplete="off"
-        />
+        <label class="form-label fw-bold text-gray-900 fs-6">Email адрес</label>
+        <Field v-model="email" class="form-control form-control-lg form-control-solid bg-white border rounded-2" type="email"
+          placeholder="" name="email" autocomplete="off" />
         <div class="fv-plugins-message-container">
           <div class="fv-help-block">
             <ErrorMessage name="email" />
@@ -109,18 +51,13 @@
         <!--begin::Wrapper-->
         <div class="mb-1">
           <!--begin::Label-->
-          <label class="form-label fw-bold text-gray-900 fs-6"> Password </label>
+          <label class="form-label fw-bold text-gray-900 fs-6"> Пароль </label>
           <!--end::Label-->
 
           <!--begin::Input wrapper-->
           <div class="position-relative mb-3">
-            <Field
-              class="form-control form-control-lg form-control-solid"
-              type="password"
-              placeholder=""
-              name="password"
-              autocomplete="off"
-            />
+            <Field v-model="password" class="form-control form-control-lg bg-white border rounded-2 form-control-solid" type="password"
+              placeholder="Пароль" name="password" autocomplete="off" />
             <div class="fv-plugins-message-container">
               <div class="fv-help-block">
                 <ErrorMessage name="password" />
@@ -129,22 +66,11 @@
           </div>
           <!--end::Input wrapper-->
           <!--begin::Meter-->
-          <div
-            class="d-flex align-items-center mb-3"
-            data-kt-password-meter-control="highlight"
-          >
-            <div
-              class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"
-            ></div>
-            <div
-              class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"
-            ></div>
-            <div
-              class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"
-            ></div>
-            <div
-              class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"
-            ></div>
+          <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
           </div>
           <!--end::Meter-->
         </div>
@@ -159,16 +85,9 @@
 
       <!--begin::Input group-->
       <div class="fv-row mb-5">
-        <label class="form-label fw-bold text-gray-900 fs-6"
-          >Confirm Password</label
-        >
-        <Field
-          class="form-control form-control-lg form-control-solid"
-          type="password"
-          placeholder=""
-          name="password_confirmation"
-          autocomplete="off"
-        />
+        <label class="form-label fw-bold text-gray-900 fs-6">Подтвердите пароль</label>
+        <Field class="form-control form-control-lg form-control-solid bg-white border rounded-2" type="password"
+          placeholder="" name="password_confirmation" autocomplete="off" />
         <div class="fv-plugins-message-container">
           <div class="fv-help-block">
             <ErrorMessage name="password_confirmation" />
@@ -179,16 +98,23 @@
 
       <!--begin::Input group-->
       <div class="fv-row mb-10">
-        <label class="form-check form-check-custom form-check-solid">
-          <Field
-            class="form-check-input"
-            type="checkbox"
-            name="toc"
-            value="1"
-          />
+        <label class="form-check form-check-custom form-check-solid d-flex align-items-start">
+          <Field class="form-check-input" type="checkbox" name="toc" value="1" />
           <span class="form-check-label fw-semibold text-gray-700 fs-6">
-            I Agree &
-            <a href="#" class="ms-1 link-primary">Terms and conditions</a>.
+            Я согласен с
+            <a href="#" class="fs-base text-decoration-underline text-black">условиями использования и политикой
+              конфиденциальности</a>.
+          </span>
+        </label>
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="fv-row mb-10">
+        <label class="form-check form-check-custom form-check-solid d-flex align-items-start">
+          <Field class="form-check-input" type="checkbox" name="toc" value="1" />
+          <span class="form-check-label fw-semibold text-gray-700 fs-6">
+            Я согласен получать полезный материал на свой email
           </span>
         </label>
       </div>
@@ -196,18 +122,11 @@
 
       <!--begin::Actions-->
       <div class="text-center">
-        <button
-          id="kt_sign_up_submit"
-          ref="submitButton"
-          type="submit"
-          class="btn btn-lg btn-primary"
-        >
-          <span class="indicator-label"> Submit </span>
+        <button id="kt_sign_up_submit" ref="submitButton" type="submit" class="btn btn-lg btn-primary">
+          <span class="indicator-label"> Войти в CRM </span>
           <span class="indicator-progress">
             Please wait...
-            <span
-              class="spinner-border spinner-border-sm align-middle ms-2"
-            ></span>
+            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
           </span>
         </button>
       </div>
@@ -236,6 +155,8 @@ export default defineComponent({
     ErrorMessage,
   },
   setup() {
+    const email = ref('');
+    const password = ref('');
     const store = useAuthStore();
     const router = useRouter();
 
@@ -312,6 +233,8 @@ export default defineComponent({
       onSubmitRegister,
       submitButton,
       getAssetPath,
+      email,
+      password
     };
   },
 });

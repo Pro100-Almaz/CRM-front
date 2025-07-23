@@ -1,53 +1,52 @@
 <template>
   <!--begin::Wrapper-->
-  <div class="w-lg-500px p-10">
+  <div class="w-lg-500px p-10 border rounded-2 shadow-sm">
     <!--begin::Form-->
-    <VForm
-      class="form w-100"
-      id="kt_login_signin_form"
-      @submit="onSubmitLogin"
-      :validation-schema="login"
-      :initial-values="{ email: 'admin@demo.com', password: 'demo' }"
-    >
+    <VForm class="form w-100" id="kt_login_signin_form" @submit="onSubmitLogin" :validation-schema="login"
+      :initial-values="{ email: 'admin@demo.com', password: 'demo' }">
       <!--begin::Heading-->
       <div class="text-center mb-10">
         <!--begin::Title-->
-        <h1 class="text-gray-900 mb-3">Sign In</h1>
+        <h1 class="text-gray-900 mb-3">Вход в систему</h1>
         <!--end::Title-->
 
         <!--begin::Link-->
-        <div class="text-gray-500 fw-semibold fs-4">
+        <div>
+          Выберите способ входа в CRM систему
+        </div>
+        <!-- <div class="text-gray-500 fw-semibold fs-4">
           New Here?
 
           <router-link to="/sign-up" class="link-primary fw-bold">
             Create an Account
           </router-link>
-        </div>
+        </div> -->
         <!--end::Link-->
       </div>
       <!--begin::Heading-->
 
-      <div class="mb-10 bg-light-info p-8 rounded">
-        <div class="text-info">
-          Use account <strong>admin@demo.com</strong> and password
-          <strong>demo</strong> to continue.
-        </div>
+      <!--begin::Google link-->
+      <a href="#" class="btn btn-flex btn-light btn-lg w-100 mb-5 bg-white border border-secondary">
+        <img alt="Logo" :src="getAssetPath('media/svg/brand-logos/google-icon.svg')" class="h-20px me-3" />
+        Continue with Google
+      </a>
+      <!--end::Google link-->
+      <!--begin::Separator-->
+      <div class="d-flex align-items-center text-muted text-uppercase fw-bold mb-5">
+        <div class="flex-grow-1 border-bottom"></div>
+        <div class="px-3">ИЛИ</div>
+        <div class="flex-grow-1 border-bottom"></div>
       </div>
-
+      <!--end::Separator-->
       <!--begin::Input group-->
       <div class="fv-row mb-10">
         <!--begin::Label-->
-        <label class="form-label fs-6 fw-bold text-gray-900">Email</label>
+        <label class="form-label fs-6 fw-bold text-gray-900">Email адрес</label>
         <!--end::Label-->
 
         <!--begin::Input-->
-        <Field
-          tabindex="1"
-          class="form-control form-control-lg form-control-solid"
-          type="text"
-          name="email"
-          autocomplete="off"
-        />
+        <Field tabindex="1" v-model="email" class="form-control bg-white border rounded-2 form-control-lg form-control-solid" type="text" name="email"
+          autocomplete="off" />
         <!--end::Input-->
         <div class="fv-plugins-message-container">
           <div class="fv-help-block">
@@ -60,27 +59,29 @@
       <!--begin::Input group-->
       <div class="fv-row mb-10">
         <!--begin::Wrapper-->
-        <div class="d-flex flex-stack mb-2">
+        <div class="d-flex flex-column mb-2">
           <!--begin::Label-->
-          <label class="form-label fw-bold text-gray-900 fs-6 mb-0">Password</label>
+          <label class="form-label fw-bold text-gray-900 fs-6 mb-2">Пароль</label>
           <!--end::Label-->
-
-          <!--begin::Link-->
-          <router-link to="/password-reset" class="link-primary fs-6 fw-bold">
-            Forgot Password ?
-          </router-link>
-          <!--end::Link-->
+          <Field tabindex="2" v-model="password" class="form-control bg-white border rounded-2 form-control-lg form-control-solid" type="password" name="password"
+          autocomplete="off" />
         </div>
         <!--end::Wrapper-->
 
         <!--begin::Input-->
-        <Field
-          tabindex="2"
-          class="form-control form-control-lg form-control-solid"
-          type="password"
-          name="password"
-          autocomplete="off"
-        />
+
+        <div class="d-flex justify-content-between mt-4">
+          <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+            <input class="form-check-input" type="checkbox" value="1" v-model="isSave" />
+            <span class="form-check-label user-select-none text-black"> Запомнить меня </span>
+          </label>
+          <!--begin::Link-->
+          <router-link to="/password-reset" class="link-primary fs-6 text-black">
+            Забыли пароль?
+          </router-link>
+        </div>
+
+        <!--end::Link-->
         <!--end::Input-->
         <div class="fv-plugins-message-container">
           <div class="fv-help-block">
@@ -93,65 +94,30 @@
       <!--begin::Actions-->
       <div class="text-center">
         <!--begin::Submit button-->
-        <button
-          tabindex="3"
-          type="submit"
-          ref="submitButton"
-          id="kt_sign_in_submit"
-          class="btn btn-lg btn-primary w-100 mb-5"
-        >
-          <span class="indicator-label"> Continue </span>
+        <button tabindex="3" type="submit" ref="submitButton" id="kt_sign_in_submit"
+          class="btn btn-lg btn-primary w-100 mb-5">
+          <span class="indicator-label"> Войти в CRM </span>
 
           <span class="indicator-progress">
             Please wait...
-            <span
-              class="spinner-border spinner-border-sm align-middle ms-2"
-            ></span>
+            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
           </span>
         </button>
         <!--end::Submit button-->
-
-        <!--begin::Separator-->
-        <div class="text-center text-muted text-uppercase fw-bold mb-5">or</div>
-        <!--end::Separator-->
-
-        <!--begin::Google link-->
-        <a
-          href="#"
-          class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5"
-        >
-          <img
-            alt="Logo"
-            :src="getAssetPath('media/svg/brand-logos/google-icon.svg')"
-            class="h-20px me-3"
-          />
-          Continue with Google
-        </a>
-        <!--end::Google link-->
+        <router-link to="/sign-up" class="link-primary d-flex justify-content-center gap-1 text-black">
+          <p>Нет аккаунта?</p>
+          <p class=" fw-bold">Зарегистрироваться</p>
+        </router-link>
 
         <!--begin::Google link-->
-        <a
-          href="#"
-          class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5"
-        >
-          <img
-            alt="Logo"
-            :src="getAssetPath('media/svg/brand-logos/facebook-4.svg')"
-            class="h-20px me-3"
-          />
-          Continue with Facebook
-        </a>
-        <!--end::Google link-->
-
-        <!--begin::Google link-->
-        <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100">
+        <!-- <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100">
           <img
             alt="Logo"
             :src="getAssetPath('media/svg/brand-logos/apple-black.svg')"
             class="h-20px me-3"
           />
           Continue with Apple
-        </a>
+        </a> -->
         <!--end::Google link-->
       </div>
       <!--end::Actions-->
@@ -178,7 +144,10 @@ export default defineComponent({
     ErrorMessage,
   },
   setup() {
+    const email = ref('');
+    const isSave = ref(false)
     const store = useAuthStore();
+    const password = ref('');
     const router = useRouter();
 
     const submitButton = ref<HTMLButtonElement | null>(null);
@@ -238,12 +207,15 @@ export default defineComponent({
       //Deactivate indicator
       submitButton.value?.removeAttribute("data-kt-indicator");
       // eslint-disable-next-line
-        submitButton.value!.disabled = false;
+      submitButton.value!.disabled = false;
     };
 
     return {
       onSubmitLogin,
       login,
+      isSave,
+      email,
+      password,
       submitButton,
       getAssetPath,
     };
