@@ -41,7 +41,7 @@
       >
         <!--begin::Navbar-->
         <div id="kt_header_menu_nav" class="d-flex align-items-stretch">
-          <KTMenu></KTMenu>
+          <!-- <KTMenu></KTMenu> -->
         </div>
         <!--end::Navbar-->
 

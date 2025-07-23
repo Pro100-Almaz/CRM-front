@@ -25,6 +25,14 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       {
+        path: "/events",
+        name: "events",
+        component: () => import("@/views/Events.vue"),
+        meta: {
+          pageTitle: "Events",
+        },
+      },
+      {
         path: "/builder",
         name: "builder",
         component: () => import("@/views/LayoutBuilder.vue"),
@@ -438,6 +446,24 @@ const routes: Array<RouteRecordRaw> = [
           pageTitle: "Password reset",
         },
       },
+      {
+        path: "/validation-code",
+        name: "validation-code",
+        component: () =>
+          import("@/views/crafted/authentication/basic-flow/ValidationCode.vue"),
+        meta: {
+          pageTitle: "Validation-code",
+        },
+      },
+      {
+        path: "/new-password",
+        name: "new-password",
+        component: () =>
+          import("@/views/crafted/authentication/basic-flow/NewPassword.vue"),
+        meta: {
+          pageTitle: "Validation-code",
+        },
+      },
     ],
   },
   {
@@ -490,29 +516,29 @@ const router = createRouter({
   },
 });
 
-router.beforeEach((to, from, next) => {
-  const authStore = useAuthStore();
-  const configStore = useConfigStore();
+// router.beforeEach((to, from, next) => {
+//   const authStore = useAuthStore();
+//   const configStore = useConfigStore();
 
-  // current page view title
-  document.title = `${to.meta.pageTitle} - ${import.meta.env.VITE_APP_NAME}`;
+//   // current page view title
+//   document.title = `${to.meta.pageTitle} - ${import.meta.env.VITE_APP_NAME}`;
 
-  // reset config to initial state
-  configStore.resetLayoutConfig();
+//   // reset config to initial state
+//   configStore.resetLayoutConfig();
 
-  // verify auth token before each page change
-  authStore.verifyAuth();
+//   // verify auth token before each page change
+//   authStore.verifyAuth();
 
-  // before page access check if page requires authentication
-  if (to.meta.middleware == "auth") {
-    if (authStore.isAuthenticated) {
-      next();
-    } else {
-      next({ name: "sign-in" });
-    }
-  } else {
-    next();
-  }
-});
+//   // before page access check if page requires authentication
+//   if (to.meta.middleware == "auth") {
+//     if (authStore.isAuthenticated) {
+//       next();
+//     } else {
+//       next({ name: "sign-in" });
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;
