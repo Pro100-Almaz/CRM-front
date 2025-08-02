@@ -33,6 +33,14 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       {
+        path: "/profile",
+        name: "profile",
+        component: () => import("@/views/Profile.vue"),
+        meta: {
+          pageTitle: "Profile",
+        },
+      },
+      {
         path: "/builder",
         name: "builder",
         component: () => import("@/views/LayoutBuilder.vue"),
@@ -41,70 +49,70 @@ const routes: Array<RouteRecordRaw> = [
           breadcrumbs: ["Layout"],
         },
       },
-      {
-        path: "/crafted/pages/profile",
-        name: "profile",
-        component: () => import("@/components/page-layouts/Profile.vue"),
-        meta: {
-          breadcrumbs: ["Pages", "Profile"],
-        },
-        children: [
-          {
-            path: "overview",
-            name: "profile-overview",
-            component: () =>
-              import("@/views/crafted/pages/profile/Overview.vue"),
-            meta: {
-              pageTitle: "Overview",
-            },
-          },
-          {
-            path: "projects",
-            name: "profile-projects",
-            component: () =>
-              import("@/views/crafted/pages/profile/Projects.vue"),
-            meta: {
-              pageTitle: "Projects",
-            },
-          },
-          {
-            path: "campaigns",
-            name: "profile-campaigns",
-            component: () =>
-              import("@/views/crafted/pages/profile/Campaigns.vue"),
-            meta: {
-              pageTitle: "Campaigns",
-            },
-          },
-          {
-            path: "documents",
-            name: "profile-documents",
-            component: () =>
-              import("@/views/crafted/pages/profile/Documents.vue"),
-            meta: {
-              pageTitle: "Documents",
-            },
-          },
-          {
-            path: "connections",
-            name: "profile-connections",
-            component: () =>
-              import("@/views/crafted/pages/profile/Connections.vue"),
-            meta: {
-              pageTitle: "Connections",
-            },
-          },
-          {
-            path: "activity",
-            name: "profile-activity",
-            component: () =>
-              import("@/views/crafted/pages/profile/Activity.vue"),
-            meta: {
-              pageTitle: "Activity",
-            },
-          },
-        ],
-      },
+      // {
+      //   path: "/crafted/pages/profile",
+      //   name: "profile",
+      //   component: () => import("@/components/page-layouts/Profile.vue"),
+      //   meta: {
+      //     breadcrumbs: ["Pages", "Profile"],
+      //   },
+      //   children: [
+      //     {
+      //       path: "overview",
+      //       name: "profile-overview",
+      //       component: () =>
+      //         import("@/views/crafted/pages/profile/Overview.vue"),
+      //       meta: {
+      //         pageTitle: "Overview",
+      //       },
+      //     },
+      //     {
+      //       path: "projects",
+      //       name: "profile-projects",
+      //       component: () =>
+      //         import("@/views/crafted/pages/profile/Projects.vue"),
+      //       meta: {
+      //         pageTitle: "Projects",
+      //       },
+      //     },
+      //     {
+      //       path: "campaigns",
+      //       name: "profile-campaigns",
+      //       component: () =>
+      //         import("@/views/crafted/pages/profile/Campaigns.vue"),
+      //       meta: {
+      //         pageTitle: "Campaigns",
+      //       },
+      //     },
+      //     {
+      //       path: "documents",
+      //       name: "profile-documents",
+      //       component: () =>
+      //         import("@/views/crafted/pages/profile/Documents.vue"),
+      //       meta: {
+      //         pageTitle: "Documents",
+      //       },
+      //     },
+      //     {
+      //       path: "connections",
+      //       name: "profile-connections",
+      //       component: () =>
+      //         import("@/views/crafted/pages/profile/Connections.vue"),
+      //       meta: {
+      //         pageTitle: "Connections",
+      //       },
+      //     },
+      //     {
+      //       path: "activity",
+      //       name: "profile-activity",
+      //       component: () =>
+      //         import("@/views/crafted/pages/profile/Activity.vue"),
+      //       meta: {
+      //         pageTitle: "Activity",
+      //       },
+      //     },
+      //   ],
+      // },
       {
         path: "/crafted/pages/wizards/horizontal",
         name: "horizontal-wizard",
