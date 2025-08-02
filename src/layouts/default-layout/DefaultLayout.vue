@@ -9,10 +9,10 @@
     />
     <!-- end:: Aside Left -->
 
-    <div id="kt_wrapper" class="d-flex flex-column flex-row-fluid wrapper">
+    <div id="kt_wrapper" class="d-flex flex-column flex-row-fluid wrapper pt-20">
       <KTHeader />
 
-      <KTToolbar v-if="subheaderDisplay" />
+      <!-- <KTToolbar v-if="subheaderDisplay" /> -->
 
       <!-- begin:: Content -->
       <div id="kt_content" class="content d-flex flex-column flex-column-fluid">

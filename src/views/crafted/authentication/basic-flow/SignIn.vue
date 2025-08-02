@@ -28,7 +28,7 @@
       <!--begin::Google link-->
       <a href="#" class="btn btn-flex btn-light btn-lg w-100 mb-5 bg-white border border-secondary">
         <img alt="Logo" :src="getAssetPath('media/svg/brand-logos/google-icon.svg')" class="h-20px me-3" />
-        Continue with Google
+        Войти через Google
       </a>
       <!--end::Google link-->
       <!--begin::Separator-->
