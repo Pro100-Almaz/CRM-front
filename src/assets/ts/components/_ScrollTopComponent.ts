@@ -37,12 +37,16 @@ class ScrollTopComponent {
   }
 
   private _handlers = () => {
-    let timer: number;
-    window.addEventListener("scroll", () => {
-      throttle(timer, () => {
-        this._scroll();
-      });
-    });
+    function throttle(func: Function, limit: number) {
+      let inThrottle: boolean;
+      return function (this: any, ...args: any[]) {
+        if (!inThrottle) {
+          func.apply(this, args);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      };
+    }
 
     this.element.addEventListener("click", (e: Event) => {
       e.preventDefault();

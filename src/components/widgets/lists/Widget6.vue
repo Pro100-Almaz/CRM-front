@@ -28,7 +28,6 @@
         <!--begin::Item-->
         <div
           :class="[
-            'mb-7' && list.length - 1 !== index,
             `bg-light-${item.color}`,
           ]"
           class="d-flex align-items-center rounded p-5 mb-7"

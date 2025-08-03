@@ -1,8 +1,10 @@
-import { createApp } from "vue";
-import App from "@/App.vue";
-import { initApexCharts } from "@/core/plugins/apexcharts";
+import type { App } from "vue";
+import VueApexCharts from "vue3-apexcharts";
 
-
-const app = createApp(App);
-initApexCharts(app);
-app.mount("#app");
+/**
+ * Initialize VueApexChart component
+ * @param app vue instance
+ */
+// export function initApexCharts(app: App<Element>) {
+//   app.use(VueApexCharts);
+// }
