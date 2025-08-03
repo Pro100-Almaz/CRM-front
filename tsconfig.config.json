@@ -1,8 +1,9 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
-  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*", "playwright.config.*"],
   "compilerOptions": {
     "composite": true,
-    "types": ["node"]
-  }
+    "emitDeclarationOnly": true,
+    "outDir": "dist",         // required if emitDeclarationOnly is set
+    "declaration": true
+  },
+  "include": ["your-files-or-globs-here"]
 }

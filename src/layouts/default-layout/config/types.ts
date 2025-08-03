@@ -85,7 +85,6 @@ interface LayoutConfig {
   footer: Footer;
 }
 
-export default LayoutConfig;
 
 export type {
   Main,
