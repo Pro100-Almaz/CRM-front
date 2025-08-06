@@ -33,6 +33,14 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       {
+        path: "/sales",
+        name: "sales",
+        component: () => import("@/views/Sales.vue"),
+        meta: {
+          pageTitle: "Sales",
+        },
+      },
+      {
         path: "/profile",
         name: "profile",
         component: () => import("@/views/Profile.vue"),

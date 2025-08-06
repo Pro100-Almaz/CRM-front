@@ -1,167 +1,107 @@
 <template>
   <!--begin::Menu-->
-  <div class="hover-scroll-overlay-y my-2 my-lg-5 pe-lg-n1" id="kt_aside_menu_wrapper" data-kt-scroll="true"
+  <div class="hover-scroll-overlay-y my-1 my-lg-2" id="kt_aside_menu_wrapper" data-kt-scroll="true"
     data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer"
     data-kt-scroll-wrappers="#kt_aside, #kt_aside_menu" data-kt-scroll-offset="5px">
     <div id="kt_aside_menu"
       class="menu menu-column menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 fw-semibold"
       data-kt-menu="true">
-      <template v-for="(item, i) in MainMenuConfig" :key="i">
-        <template v-if="item.heading">
-          <div v-if="item.route" :class="{ 'show here': currentActive(item.route) }" class="menu-item py-3">
-            <router-link v-if="item.route" class="menu-link menu-center" :to="'/events'">
-              <span v-if="item.keenthemesIcon || item.bootstrapIcon" class="menu-icon me-0">
-                <img :src="getAssetPath('media/misc/home.svg')" alt="" />
-                <!-- <i
-                    v-if="asideMenuIcons === 'bootstrap'"
-                    :class="item.bootstrapIcon"
-                    class="bi fs-2"
-                  ></i>
-                  <KTIcon
-                    v-else-if="asideMenuIcons === 'keenthemes'"
-                    :icon-name="item.keenthemesIcon"
-                    icon-class="fs-2"
-                  /> -->
-              </span>
-              <span class="menu-title"> Лента </span>
-            </router-link>
-          </div>
-          <!-- <template v-if="item.heading">
-            <div v-if="item.route" :class="{ 'show here': currentActive(item.route) }" class="menu-item py-3">
-              <router-link v-if="item.route" class="menu-link menu-center" :to="item.route">
-                <span v-if="item.keenthemesIcon || item.bootstrapIcon" class="menu-icon me-0">
-                  <i v-if="asideMenuIcons === 'bootstrap'" :class="item.bootstrapIcon" class="bi fs-2"></i>
-                  <KTIcon v-else-if="asideMenuIcons === 'keenthemes'" :icon-name="item.keenthemesIcon"
-                    icon-class="fs-2" />
-                </span>
-                <span class="menu-title">{{ translate(item.heading) }}</span>
-              </router-link>
-            </div>
-          </template> -->
-        </template>
-        <template v-if="item.pages">
-          <div v-if="item.sectionTitle && item.route" :class="{ 'show here': hasActiveChildren(item.route) }"
-            data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
-            <span class="menu-link menu-center">
-              <span v-if="item.keenthemesIcon || item.bootstrapIcon" class="menu-icon me-0">
-                <i v-if="asideMenuIcons === 'bootstrap'" :class="item.bootstrapIcon" class="bi fs-2"></i>
-                <KTIcon v-else-if="asideMenuIcons === 'keenthemes'" :icon-name="item.keenthemesIcon"
-                  icon-class="fs-2" />
-              </span>
-              <span class="menu-title">{{ translate(item.sectionTitle) }}</span>
-            </span>
-            <div class="menu-sub menu-sub-dropdown menu-sub-indention px-2 py-4 w-250px">
-              <template v-for="(menuItem, j) in item.pages" :key="j">
-                <div v-if="menuItem.sectionTitle && menuItem.route" :class="{ show: hasActiveChildren(menuItem.route) }"
-                  class="menu-item menu-accordion" data-kt-menu-sub="accordion" data-kt-menu-trigger="click">
-                  <span class="menu-link">
-                    <span class="menu-bullet">
-                      <span class="bullet bullet-dot"></span>
-                    </span>
-                    <span class="menu-title">{{
-                      translate(menuItem.sectionTitle)
-                    }}</span>
-                    <span class="menu-arrow"></span>
-                  </span>
-                  <div class="menu-sub menu-sub-accordion">
-                    <template v-for="(item2, k) in menuItem.sub" :key="k">
-                      <div v-if="item2.sectionTitle && item2.route" :class="{ show: hasActiveChildren(item2.route) }"
-                        class="menu-item menu-accordion" data-kt-menu-sub="accordion" data-kt-menu-trigger="click">
-                        <span class="menu-link">
-                          <span class="menu-bullet">
-                            <span class="bullet bullet-dot"></span>
-                          </span>
-                          <span class="menu-title">{{
-                            translate(item2.sectionTitle)
-                          }}</span>
-                          <span class="menu-arrow"></span>
-                        </span>
-                        <div v-if="item2.route" :class="{ show: hasActiveChildren(item2.route) }"
-                          class="menu-sub menu-sub-accordion">
-                          <template v-for="(item3, l) in item2.sub" :key="l">
-                            <div v-if="item3.heading" class="menu-item">
-                              <router-link v-if="item3.route" class="menu-link" active-class="active" :to="item3.route">
-                                <span class="menu-bullet">
-                                  <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">{{
-                                  translate(item3.heading)
-                                }}</span>
-                              </router-link>
-                            </div>
-                          </template>
-                        </div>
-                      </div>
-                      <div v-else-if="item2.heading" class="menu-item">
-                        <router-link v-if="item2.route" class="menu-link" active-class="active" :to="item2.route">
-                          <span class="menu-bullet">
-                            <span class="bullet bullet-dot"></span>
-                          </span>
-                          <span class="menu-title">{{
-                            translate(item2.heading)
-                          }}</span>
-                        </router-link>
-                      </div>
-                    </template>
-                  </div>
-                </div>
-                <div v-else-if="menuItem.heading" class="menu-item">
-                  <router-link v-if="menuItem.route" class="menu-link" active-class="active" :to="menuItem.route">
-                    <span class="menu-bullet">
-                      <span class="bullet bullet-dot"></span>
-                    </span>
-                    <span class="menu-title">{{
-                      translate(menuItem.heading)
-                    }}</span>
-                  </router-link>
-                </div>
-              </template>
-            </div>
-          </div>
-        </template>
-      </template>
 
-      <div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3 menu-dropdown">
-        <span class="menu-link menu-center" title="" data-bs-toggle="tooltip" data-bs-trigger="hover"
-          data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Resources">
-          <span class="menu-icon me-0">
-            <i class="bi bi-gear fs-2"></i>
+
+      <div class="menu-item p-0">
+        <router-link class="menu-link d-flex align-items-center m-0" :to="'/events'" active-class="active-menu-link"
+          exact-active-class="exact-active-menu-link" style="flex-direction: row; gap: 10px;">
+          <span class="d-flex align-items-center justify-content-center me-2">
+            <KTIcon icon-name="chart-simple-2" icon-class="fs-5" :class="{ 'text-primary': route.path === '/events' }" />
           </span>
-          <span class="menu-title">{{ translate("resources") }}</span>
-        </span>
-        <div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4" data-popper-placement="right-start">
-          <div class="menu-item">
-            <div class="menu-content">
-              <span class="menu-section fs-5 fw-bold ps-1 py-1">{{
-                translate("resources")
-              }}</span>
-            </div>
-          </div>
-          <div class="menu-item">
-            <a class="menu-link" href="https://preview.keenthemes.com/metronic8/vue/docs/base/utilities">
-              <span class="menu-icon">
-                <i class="bi bi-grid fs-3"></i>
-              </span>
-              <span class="menu-title">{{ translate("components") }}</span>
-            </a>
-          </div>
-          <div class="menu-item">
-            <a class="menu-link" href="https://preview.keenthemes.com/metronic8/vue/docs/index">
-              <span class="menu-icon">
-                <i class="bi bi-box fs-3"></i>
-              </span>
-              <span class="menu-title">{{ translate("documentation") }}</span>
-            </a>
-          </div>
-          <div class="menu-item">
-            <a class="menu-link" href="https://preview.keenthemes.com/metronic8/vue/docs/getting-started/changelog">
-              <span class="menu-icon">
-                <i class="bi bi-card-text fs-3"></i>
-              </span>
-              <span class="menu-title">{{ translate("changelog") }} v{{ version }}</span>
-            </a>
-          </div>
-        </div>
+          <span class="menu-title flex-grow-1 fs-5" :class="{ 'text-primary': route.path === '/events' }">Продвижения</span>
+        </router-link>
+      </div>
+      <div class="menu-item p-0">
+        <router-link class="menu-link d-flex align-items-center m-0" :to="'/events'" active-class="active-menu-link"
+          exact-active-class="exact-active-menu-link" style="flex-direction: row; gap: 10px;">
+          <span class="d-flex align-items-center justify-content-center me-2">
+            <KTIcon icon-name="people" icon-class="fs-5" :class="{ 'text-primary': route.path === '' }" />
+          </span>
+          <span class="menu-title flex-grow-1 fs-5" :class="{ 'text-primary': route.path === '' }">Понимания</span>
+        </router-link>
+      </div>
+      <div class="menu-item p-0">
+        <router-link class="menu-link d-flex align-items-center m-0" :to="'/sales'" active-class="active-menu-link"
+          exact-active-class="exact-active-menu-link" style="flex-direction: row; gap: 10px;">
+          <span class="d-flex align-items-center justify-content-center me-2">
+            <KTIcon icon-name="book" icon-class="fs-5" :class="{ 'text-primary': route.path === '/sales' }" />
+          </span>
+          <span class="menu-title flex-grow-1 fs-5" :class="{ 'text-primary': route.path === '/sales' }">Продажи</span>
+        </router-link>
+      </div>
+      <!-- <div class="menu-item p-0">
+        <router-link class="menu-link d-flex align-items-center m-0" :to="'/events'" active-class="active-menu-link"
+          exact-active-class="exact-active-menu-link" style="flex-direction: row; gap: 10px;">
+          <span class="d-flex align-items-center justify-content-center me-2">
+            <KTIcon icon-name="home" icon-class="fs-5" :class="{ 'text-primary': route.path === '/events' }" />
+          </span>
+          <span class="menu-title flex-grow-1 fs-5">Лента</span>
+        </router-link>
+      </div> -->
+      <div class="menu-item p-0">
+        <router-link class="menu-link d-flex align-items-center m-0" :to="'/events'" active-class="active-menu-link"
+          exact-active-class="exact-active-menu-link" style="flex-direction: row; gap: 10px;">
+          <span class="d-flex align-items-center justify-content-center me-2">
+            <KTIcon icon-name="bill" icon-class="fs-5" :class="{ 'text-primary': route.path === '' }" />
+          </span>
+          <span class="menu-title flex-grow-1 fs-5" :class="{ 'text-primary': route.path === '' }">Доходов</span>
+        </router-link>
+      </div>
+      <div class="menu-item p-0">
+        <router-link class="menu-link d-flex align-items-center m-0" :to="'/events'" active-class="active-menu-link"
+          exact-active-class="exact-active-menu-link" style="flex-direction: row; gap: 10px;">
+          <span class="d-flex align-items-center justify-content-center me-2">
+            <KTIcon icon-name="credit-cart" icon-class="fs-5" :class="{ 'text-primary': route.path === '' }" />
+          </span>
+          <span class="menu-title flex-grow-1 fs-5" :class="{ 'text-primary': route.path === '' }">Расходов</span>
+        </router-link>
+      </div>
+
+      <div class="menu-item p-0">
+        <router-link class="menu-link d-flex align-items-center m-0" :to="'/events'" active-class="active-menu-link"
+          exact-active-class="exact-active-menu-link" style="flex-direction: row; gap: 10px;">
+          <span class="d-flex align-items-center justify-content-center me-2">
+            <KTIcon icon-name="notepad-edit" icon-class="fs-5" :class="{ 'text-primary': route.path === '' }" />
+          </span>
+          <span class="menu-title flex-grow-1 fs-5" :class="{ 'text-primary': route.path === '' }">Учета</span>
+        </router-link>
+      </div>
+
+      <div class="menu-item p-0">
+        <router-link class="menu-link d-flex align-items-center m-0" :to="''" active-class="active-menu-link"
+          exact-active-class="exact-active-menu-link" style="flex-direction: row; gap: 10px;">
+          <span class="d-flex align-items-center justify-content-center me-2">
+            <KTIcon icon-name="note-2" icon-class="fs-5" :class="{ 'text-primary': route.path === '' }" />
+          </span>
+          <span class="menu-title flex-grow-1 fs-5" :class="{ 'text-primary': route.path === '' }">Планирования</span>
+        </router-link>
+      </div>
+
+      <div class="menu-item p-0">
+        <router-link class="menu-link d-flex align-items-center m-0" :to="''" active-class="active-menu-link"
+          exact-active-class="exact-active-menu-link" style="flex-direction: row; gap: 10px;">
+          <span class="d-flex align-items-center justify-content-center me-2">
+            <KTIcon icon-name="delivery" icon-class="fs-5" :class="{ 'text-primary': route.path === '' }" />
+          </span>
+          <span class="menu-title flex-grow-1 fs-5" :class="{ 'text-primary': route.path === '' }">Обеспечения</span>
+        </router-link>
+      </div>
+
+
+      <div class="menu-item p-0">
+        <router-link class="menu-link d-flex align-items-center m-0" :to="''" active-class="active-menu-link"
+          exact-active-class="exact-active-menu-link" style="flex-direction: row; gap: 10px;">
+          <span class="d-flex align-items-center justify-content-center me-2">
+            <KTIcon icon-name="briefcase" icon-class="fs-5" :class="{ 'text-primary': route.path === '' }" />
+          </span>
+          <span class="menu-title flex-grow-1 fs-5" :class="{ 'text-primary': route.path === '' }">Проиводства</span>
+        </router-link>
       </div>
     </div>
   </div>
@@ -215,6 +155,7 @@ export default defineComponent({
       version,
       translate,
       getAssetPath,
+      route,
     };
   },
 });

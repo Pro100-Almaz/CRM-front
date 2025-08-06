@@ -7,7 +7,7 @@
     data-kt-drawer-name="aside"
     data-kt-drawer-activate="{default: true, lg: false}"
     data-kt-drawer-overlay="true"
-    data-kt-drawer-width="{default:'80px', '300px': '100px'}"
+    data-kt-drawer-width="{default:'100px', '500px': '300px'}"
     data-kt-drawer-direction="start"
     data-kt-drawer-toggle="#kt_aside_mobile_toggle"
   >
