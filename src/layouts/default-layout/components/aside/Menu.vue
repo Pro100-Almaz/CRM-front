@@ -160,4 +160,13 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+.menu-item .menu-link {
+  height: 46px !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+</style>
 @/core/helpers/system
